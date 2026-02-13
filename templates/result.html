@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prediction Result</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .row { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; }
+    .card { flex: 1 1 350px; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
+    .center { text-align: center; }
+    img { max-width: 100%; height: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #ddd; padding: .5rem; text-align: left; }
+    th { background: #f9f9f9; }
+    .back { margin-top: 1rem; display: inline-block; }
+  </style>
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <div class="container">
+    <h1 class="center">Prediction Result</h1>
+    <div class="row">
+      <div class="card">
+        <h2>Uploaded Image</h2>
+        <img src="{{ image_url }}" alt="Uploaded MRI" />
+      </div>
+      <div class="card">
+        <h2>Predicted Category</h2>
+        <p><strong>{{ predicted_class }}</strong></p>
+        <img src="{{ chart_url }}" alt="Probabilities Chart" />
+        <h3>Probabilities</h3>
+        <table>
+          <thead>
+            <tr><th>Class</th><th>Probability</th></tr>
+          </thead>
+          <tbody>
+            {% for k, v in probs.items() %}
+              <tr><td>{{ k }}</td><td>{{ '%.4f'|format(v) }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a class="back" href="/">← Predict another image</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

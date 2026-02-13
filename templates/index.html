@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alzheimer MRI Detection</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    .card { max-width: 600px; margin: 0 auto; padding: 1.5rem; border: 1px solid #ddd; border-radius: 8px; }
+    h1 { text-align: center; }
+    .actions { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; }
+    .flash { color: #b00020; text-align: center; margin-bottom: 1rem; }
+  </style>
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <div class="card">
+    <h1>Alzheimer MRI Detection</h1>
+    {% if model_ready is defined and not model_ready %}
+      <div class="flash">Model not found at <code>models/alzheimer_model.h5</code>. Please train the model first.</div>
+    {% endif %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class="flash">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
+    <form action="/" method="post" enctype="multipart/form-data">
+      <label for="image">Upload Brain MRI Image:</label><br/>
+      <input type="file" id="image" name="image" accept="image/*" required />
+      <div class="actions">
+        <button type="submit">Predict</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
